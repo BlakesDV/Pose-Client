@@ -12,7 +12,7 @@ public class Arrows : MonoBehaviour
     public Sprite warningSprite;
     public Sprite activeSprite;
     private SpriteRenderer spriteRenderer;
-    private InputAction action;
+    private InputAction action; //crear input action para las flechas o cambiar el vector2 para que funcione con los botones del playerinputactions
     private bool arrowInput;
     private State actualState = State.Inactive;
 
@@ -49,7 +49,7 @@ public class Arrows : MonoBehaviour
     {
         if (actualState == State.Active && !arrowInput) 
         { 
-            Vector2 movement = action.ReadValue<Vector2>();
+            Vector2 movement = action.ReadValue<Vector2>(); //cambiar en caso de usar player input acts?
             if (movement != Vector2.zero)
             {
                 arrowInput = true;

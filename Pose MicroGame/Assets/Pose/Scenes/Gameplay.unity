@@ -252,7 +252,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19482024, g: 0.1997696, b: 0.20754719, a: 0}
+  m_BackGroundColor: {r: 0.21693666, g: 0.22324081, b: 0.23584908, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1543,7 +1543,7 @@ GameObject:
   - component: {fileID: 2311609919112116933}
   - component: {fileID: 8702558201188961900}
   m_Layer: 5
-  m_Name: Canvas Prefab
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
