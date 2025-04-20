@@ -3,58 +3,48 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System.Collections;
+using PoseGame;
 
-public class Arrows : MonoBehaviour
-{
-    #region Runtime Variables
-
-    public Sprite inactiveSprite;
-    public Sprite warningSprite;
-    public Sprite activeSprite;
-    private SpriteRenderer spriteRenderer;
-    private InputAction action; //crear input action para las flechas o cambiar el vector2 para que funcione con los botones del playerinputactions
-    private bool arrowInput;
-    private State actualState = State.Inactive;
-
-    #endregion
-
-    #region Enums
-
-    private enum State { Inactive, Warning, Active };
-
-    #endregion
-
-    private void Start()
+namespace PoseGame 
+{ 
+    public class Arrows : MonoBehaviour
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = inactiveSprite;
+        public GameMngr _gameMngr;
+        public static Arrows _arrowsI;
 
-        StartCoroutine(StateMachine());
-    }
+        #region Runtime Variables
 
-    IEnumerator StateMachine()
-    {
-        yield return new WaitForSeconds(2f);
-        actualState = State.Warning;
-        spriteRenderer.sprite = warningSprite;
+        public Image arrowUp, arrowDown, arrowLeft, arrowRight;
 
-        yield return new WaitForSeconds(2f);
-        actualState = State.Active;
-        spriteRenderer.sprite = activeSprite;
+        private Dictionary<string, Image> arrows; 
 
-        //Get input action? or on player call to check state? idk 
-    }
+        #endregion
 
-    private void Update()
-    {
-        if (actualState == State.Active && !arrowInput) 
-        { 
-            Vector2 movement = action.ReadValue<Vector2>(); //cambiar en caso de usar player input acts?
-            if (movement != Vector2.zero)
+        #region Enums
+
+        private enum State { Inactive, Warning, Active };
+
+        #endregion
+
+        private void Awake()
+        {
+            arrows = new Dictionary<string, Image>
             {
-                arrowInput = true;
-                //TODO: cambiar sprites
-            }
+                {"up", arrowUp},
+                {"down", arrowDown},
+                {"left", arrowLeft},
+                {"right", arrowRight}
+            };
+        }
+
+        public void HighlightArrow(string dir)
+        {
+            arrows[dir].color = Color.blue;
+        }
+        public void TurnOffAll()
+        {
+            foreach(var arrow in arrows.Values)
+                arrow.color = Color.white;
         }
     }
 }
