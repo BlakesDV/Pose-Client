@@ -4,6 +4,7 @@ using System;
 
 public class Timer : MonoBehaviour
 {
+    public PoseGame.GameMngr _gameMngr;
     public float timer = 6;
     public TextMeshProUGUI numbersDisplayed;
     public GameObject gameOverPanel;

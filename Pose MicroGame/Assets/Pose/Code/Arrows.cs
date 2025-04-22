@@ -66,7 +66,7 @@ namespace PoseGame
             
             //Random highlight
             float time = 3f;
-            while (time < 0)
+            while (time > 0)
             {
                 string dir = directions[UnityEngine.Random.Range(0, directions.Count)];
                 HighlightArrow(dir);
