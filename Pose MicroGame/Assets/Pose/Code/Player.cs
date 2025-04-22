@@ -16,6 +16,9 @@ public class Player : MonoBehaviour
     public GameObject loseSprite;
     public GameObject wonSprite;
 
+    private enum State { idle,  up, down, left, right, win, lose }
+    private State state = State.idle;
+
     private PlayerInputActions inputActions;
     private PoseGame.Arrows[] arrows;
     private PoseGame.GameMngr gameMngr;
@@ -25,6 +28,7 @@ public class Player : MonoBehaviour
     #region Unity Methods
     private void Start()
     {
+        
         gameMngr = FindFirstObjectByType<PoseGame.GameMngr>();
         arrows = FindObjectsByType<PoseGame.Arrows>(FindObjectsSortMode.None);
     }
