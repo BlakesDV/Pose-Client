@@ -8,22 +8,37 @@ public class Timer : MonoBehaviour
     public float timer = 6;
     public TextMeshProUGUI numbersDisplayed;
     public GameObject gameOverPanel;
+    public bool _isTimeOn;
 
+    private void Start()
+    {
+        _isTimeOn = true;
+    }
     void Update()
     {
-        timer -= Time.deltaTime;
-
-        numbersDisplayed.text = Mathf.Ceil(timer).ToString();
-
-        if (timer <= 0)
+        if (_isTimeOn && _gameMngr._gameState == PoseGame.GameStates.GAME)
         {
-            GameOver();
+            timer -= Time.deltaTime;
+
+            numbersDisplayed.text = Mathf.Ceil(timer).ToString();
+
+            if (timer <= 0)
+            {
+                //GameOver();
+                _gameMngr.Lose();
+            }
         }
     }
 
-    private void GameOver()
+    //private void GameOver()
+    //{
+    //    gameOverPanel.SetActive(true);
+    //    Time.timeScale = 0f;
+    //    _isTimeOn = false;
+    //}
+
+    public float GetSetTimer
     {
-        gameOverPanel.SetActive(true);
-        Time.timeScale = 0f;
+        set { timer = value; }
     }
 }

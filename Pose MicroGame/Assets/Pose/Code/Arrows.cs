@@ -55,7 +55,7 @@ namespace PoseGame
         public void TurnOffAll()
         {
             foreach(var arrow in arrows.Values)
-                arrow.color = Color.white;
+                arrow.color = Color.magenta;
         }
 
         public IEnumerator ArrowShuffle(int level, Action win, Action lose)
@@ -110,20 +110,23 @@ namespace PoseGame
 
         void PressPerformed(InputAction.CallbackContext context)
         {
-            if (inputReceived) return;
-            Vector2 input = context.ReadValue<Vector2>();
-            string inputDir = "";
+            if ( _gameMngr._gameState == GameStates.GAME)
+            {
+                if (inputReceived) return;
+                Vector2 input = context.ReadValue<Vector2>();
+                string inputDir = "";
 
-            if (input == Vector2.up) inputDir = "up";
-            else if (input == Vector2.down) inputDir = "down";
-            else if (input == Vector2.left) inputDir = "left";
-            else if (input == Vector2.right) inputDir = "right";
-            inputReceived = true;
+                if (input == Vector2.up) inputDir = "up";
+                else if (input == Vector2.down) inputDir = "down";
+                else if (input == Vector2.left) inputDir = "left";
+                else if (input == Vector2.right) inputDir = "right";
+                inputReceived = true;
 
-            if (inputDir == correctDirection)
-                succes?.Invoke();
-            else
-                failed?.Invoke();
+                if (inputDir == correctDirection)
+                    succes?.Invoke();
+                else
+                    failed?.Invoke();
+            }
         }
     }
 }
