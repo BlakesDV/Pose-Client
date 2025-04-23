@@ -23,6 +23,13 @@ namespace PoseGame
         private int currentLevel = 1;
         public Timer _timer;
         public GameStates _gameState;
+        public GameObject idleSprite;
+        public GameObject upSprite;
+        public GameObject downSprite;
+        public GameObject leftSprite;
+        public GameObject rightSprite;
+        public GameObject loseSprite;
+        public GameObject wonSprite;
 
         protected Coroutine arrowCoroutine;
 
@@ -49,6 +56,7 @@ namespace PoseGame
             if (_gameState == GameStates.GAME)
             {
                 losePanel.SetActive(true);
+                loseSprite.SetActive(true);
                 currentLevel = 1;
                 StartCoroutine(TimeToRestartGame(2f));
                 StopCoroutine(arrowCoroutine);
@@ -62,6 +70,7 @@ namespace PoseGame
             if (_gameState == GameStates.GAME)
             {
                 winPanel.SetActive(true);
+                wonSprite.SetActive(true);
                 currentLevel++;
                 StartCoroutine(TimeToRestartGame(2f));
                 StopCoroutine(arrowCoroutine);
@@ -81,8 +90,11 @@ namespace PoseGame
 
         protected void RestartGame()
         {
+            wonSprite.SetActive(false);
+            loseSprite.SetActive(false);
             winPanel.SetActive(false);
             losePanel.SetActive(false);
+            idleSprite.SetActive(true);
             _timer.GetSetTimer = 6;
             _timer._isTimeOn = true; //gameState -> GAME
             arrowCoroutine = StartCoroutine(_arrows.ArrowShuffle(currentLevel, Win, Lose));

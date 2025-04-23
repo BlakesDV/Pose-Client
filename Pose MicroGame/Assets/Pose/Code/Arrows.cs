@@ -10,8 +10,12 @@ namespace PoseGame
 { 
     public class Arrows : MonoBehaviour
     {
+        #region References
+
         public GameMngr _gameMngr;
         public static Arrows _arrowsI;
+        public Player _player;
+        #endregion
 
         #region Runtime Variables
 
@@ -121,11 +125,18 @@ namespace PoseGame
                 else if (input == Vector2.left) inputDir = "left";
                 else if (input == Vector2.right) inputDir = "right";
                 inputReceived = true;
+                _player?.ArrowDirectionPressed(inputDir);
 
                 if (inputDir == correctDirection)
+                {
                     succes?.Invoke();
+                    _player?.OnGameOver(true);
+                }
                 else
+                {
                     failed?.Invoke();
+                    _player?.OnGameOver(false);
+                }
             }
         }
     }

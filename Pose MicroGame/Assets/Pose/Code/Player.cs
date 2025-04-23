@@ -1,11 +1,12 @@
 using Microsoft.Unity.VisualStudio.Editor;
+using PoseGame;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    //TODO: input jugador a cada flecha?
     #region Runtime Variables
 
     public GameObject idleSprite;
@@ -16,66 +17,25 @@ public class Player : MonoBehaviour
     public GameObject loseSprite;
     public GameObject wonSprite;
 
+    public GameMngr _gameMngr;
+    public Arrows _arrows;
+
     private enum State { idle,  up, down, left, right, win, lose }
     private State state = State.idle;
-
-    private PlayerInputActions inputActions;
-    private PoseGame.Arrows[] arrows;
-    private PoseGame.GameMngr gameMngr;
 
     #endregion
 
     #region Unity Methods
     private void Start()
     {
-        
-        gameMngr = FindFirstObjectByType<PoseGame.GameMngr>();
-        arrows = FindObjectsByType<PoseGame.Arrows>(FindObjectsSortMode.None);
+        if (_gameMngr == null) _gameMngr = FindFirstObjectByType<GameMngr>();
+        if (_arrows == null) _arrows = FindFirstObjectByType<Arrows>();
+        IdleReset();
     }
     #endregion
 
     #region Pose Changes
-    private void PoseUpdate()
-    {
-        
-    }
-    void ChangePoseUp(InputAction.CallbackContext value)
-    {
-        //if para preguntar estado finito en input
-        if (value.performed)
-        {
-            //upRenderer.sprite = upSprite; pasar a arrow script
-            //INVOKE ARROW UP
-            foreach (PoseGame.Arrows arrow in arrows)
-            {
-
-            }
-        }
-    }
-    void ChangePoseDown(InputAction.CallbackContext value)
-    {
-        //if para preguntar estado finito en input
-        if (value.performed)
-        {
-            
-        }
-    }
-    void ChangePoseLeft(InputAction.CallbackContext value)
-    {
-        //if para preguntar estado finito en input
-        if (value.performed)
-        {
-
-        }
-    }
-    void ChangePoseRight(InputAction.CallbackContext value)
-    {
-        //if para preguntar estado finito en input
-        if (value.performed)
-        {
-
-        }
-    }
+    
     private void SetPoseState(string state)
     {
         upSprite.SetActive(false);
@@ -83,6 +43,8 @@ public class Player : MonoBehaviour
         leftSprite.SetActive(false);
         rightSprite.SetActive(false);
         idleSprite.SetActive(false);
+        wonSprite.SetActive(false);
+        loseSprite.SetActive(false);
 
         switch (state)
         {
@@ -101,7 +63,42 @@ public class Player : MonoBehaviour
             case "Right":
                 rightSprite.SetActive(true);
                 break;
+            case "Won":
+                wonSprite.SetActive(true);
+                break;
+            case "Lose":
+                loseSprite.SetActive(true);
+                break;
         }
+    }
+    public void ArrowDirectionPressed(string direction)
+    {
+        SetPoseState(direction);
+        StartCoroutine(IdleDelayRestart(1f));
+    }
+
+    public void OnGameOver(bool youWon)
+    {
+        StopAllCoroutines();
+        StartCoroutine(EndPose(youWon));
+    }
+
+    public void IdleReset()
+    {
+        StopAllCoroutines();
+        SetPoseState("idle");
+    }
+
+    private IEnumerator IdleDelayRestart(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SetPoseState("idle");
+    }
+
+    public IEnumerator EndPose(bool didWin)
+    {
+        yield return new WaitForSeconds(2f);
+        SetPoseState(didWin ? "Win" : "Lose");
     }
     #endregion
 }
