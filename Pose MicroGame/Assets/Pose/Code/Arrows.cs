@@ -125,17 +125,17 @@ namespace PoseGame
                 else if (input == Vector2.left) inputDir = "left";
                 else if (input == Vector2.right) inputDir = "right";
                 inputReceived = true;
-                _player?.ArrowDirectionPressed(inputDir);
+                //_player?.ArrowDirectionPressed(inputDir);
 
                 if (inputDir == correctDirection)
                 {
                     succes?.Invoke();
-                    _player?.OnGameOver(true);
+                    //_player?.OnGameOver(true);
                 }
                 else
                 {
                     failed?.Invoke();
-                    _player?.OnGameOver(false);
+                    //_player?.OnGameOver(false);
                 }
             }
         }

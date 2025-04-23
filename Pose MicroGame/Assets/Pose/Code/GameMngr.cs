@@ -57,6 +57,7 @@ namespace PoseGame
             {
                 losePanel.SetActive(true);
                 loseSprite.SetActive(true);
+                SetPoseState("Lose");
                 currentLevel = 1;
                 StartCoroutine(TimeToRestartGame(2f));
                 StopCoroutine(arrowCoroutine);
@@ -71,6 +72,7 @@ namespace PoseGame
             {
                 winPanel.SetActive(true);
                 wonSprite.SetActive(true);
+                SetPoseState("Won");
                 currentLevel++;
                 StartCoroutine(TimeToRestartGame(2f));
                 StopCoroutine(arrowCoroutine);
@@ -90,8 +92,15 @@ namespace PoseGame
 
         protected void RestartGame()
         {
-            wonSprite.SetActive(false);
-            loseSprite.SetActive(false);
+            if (!wonSprite.transform.parent.gameObject.activeInHierarchy)
+            {
+                wonSprite.transform.parent.gameObject.SetActive(true);
+            }
+            if (!loseSprite.transform.parent.gameObject.activeInHierarchy)
+            {
+                loseSprite.transform.parent.gameObject.SetActive(true);
+            }
+            SetPoseState("Idle");
             winPanel.SetActive(false);
             losePanel.SetActive(false);
             idleSprite.SetActive(true);
@@ -113,6 +122,41 @@ namespace PoseGame
             //    }
             //}
             Restart();
+        }
+        private void SetPoseState(string state)
+        {
+            upSprite.SetActive(false);
+            downSprite.SetActive(false);
+            leftSprite.SetActive(false);
+            rightSprite.SetActive(false);
+            idleSprite.SetActive(false);
+            wonSprite.SetActive(false);
+            loseSprite.SetActive(false);
+
+            switch (state)
+            {
+                case "Idle":
+                    idleSprite.SetActive(true);
+                    break;
+                case "Up":
+                    upSprite.SetActive(true);
+                    break;
+                case "Down":
+                    downSprite.SetActive(true);
+                    break;
+                case "Left":
+                    leftSprite.SetActive(true);
+                    break;
+                case "Right":
+                    rightSprite.SetActive(true);
+                    break;
+                case "Won":
+                    wonSprite.SetActive(true);
+                    break;
+                case "Lose":
+                    loseSprite.SetActive(true);
+                    break;
+            }
         }
     }
 }
