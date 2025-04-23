@@ -547,15 +547,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _arrows: {fileID: 7058374538562578002}
+  _player: {fileID: 9094514452082648256}
   winPanel: {fileID: 826472159}
   losePanel: {fileID: 3027357094841810688}
   _timer: {fileID: 4204076920780166159}
   _gameState: 0
   idleSprite: {fileID: 750512912}
-  upSprite: {fileID: 883549525}
-  downSprite: {fileID: 237609462}
-  leftSprite: {fileID: 1738391219}
-  rightSprite: {fileID: 2090635986}
   loseSprite: {fileID: 1275849824}
   wonSprite: {fileID: 1770151343}
 --- !u!4 &983230685
@@ -2187,7 +2184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameMngr: {fileID: 983230684}
-  _player: {fileID: 9094514452082648256}
+  _player: {fileID: 0}
   arrowUp: {fileID: 9202268758532483446}
   arrowDown: {fileID: 5385856242369642462}
   arrowLeft: {fileID: 9051321175320522720}
@@ -2380,20 +2377,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6526235756791034796}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80e2e49149e20f340b1cee0dc344f728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleSprite: {fileID: 750512912}
+  poseSprites: []
   upSprite: {fileID: 883549525}
   downSprite: {fileID: 237609462}
   leftSprite: {fileID: 1738391219}
   rightSprite: {fileID: 2090635986}
-  loseSprite: {fileID: 1275849824}
-  wonSprite: {fileID: 1770151343}
-  _gameMngr: {fileID: 983230684}
-  _arrows: {fileID: 7058374538562578002}
+  idleSprite: {fileID: 750512912}
 --- !u!114 &9202268758532483446
 MonoBehaviour:
   m_ObjectHideFlags: 0
